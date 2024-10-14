@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({super.key});
+  ResultPage(
+      {required this.bmiResult,
+      required this.resultText,
+      required this.interpretation});
+  final String bmiResult;
+  final String resultText;
+  final String interpretation;
 
   @override
   Widget build(BuildContext context) {
@@ -34,22 +40,22 @@ class ResultPage extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   color: const Color.fromARGB(255, 8, 34, 61),
-                  child: const Column(
+                  child:  Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        'Under Weight',
-                        style: TextStyle(
+                        resultText,
+                        style: const TextStyle(
                             fontSize: 35,
                             color: Color.fromARGB(255, 54, 231, 244)),
                       ),
                       Text(
-                        '27.8',
-                        style: TextStyle(fontSize: 26),
+                        bmiResult,
+                        style: const TextStyle(fontSize: 26),
                       ),
                       Text(
-                        'fgdgdgdfgdfg',
-                        style: TextStyle(fontSize: 27),
+                        interpretation,
+                        style: const TextStyle(fontSize: 27),
                       )
                     ],
                   ),

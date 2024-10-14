@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class WeightandAgeControl extends StatelessWidget {
-  final int Num;
+  final double Num;
   final ValueChanged<int> onWeightChanged;
   final String label;
   const WeightandAgeControl(
@@ -27,7 +27,7 @@ class WeightandAgeControl extends StatelessWidget {
             style: TextStyle(fontSize: 30),
           ),
           Text(
-            Num.toString(),
+            Num.toStringAsFixed(0),
             style: const TextStyle(fontSize: 30),
           ),
           Row(
@@ -43,7 +43,7 @@ class WeightandAgeControl extends StatelessWidget {
                 ),
                 onPressed: () {
                   if (Num > 0) {
-                    onWeightChanged(Num - 1);
+                    onWeightChanged(Num.toInt() - 1);
                   }
                 },
                 child: const Icon(
@@ -60,7 +60,7 @@ class WeightandAgeControl extends StatelessWidget {
                   shadowColor: Colors.black.withOpacity(0.5),
                 ),
                 onPressed: () {
-                  onWeightChanged(Num + 1);
+                  onWeightChanged(Num.toInt() + 1);
                 },
                 child: const Icon(
                   FontAwesomeIcons.plus,

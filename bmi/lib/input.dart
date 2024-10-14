@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:bmi/Gendercard.dart';
 import 'package:bmi/ResultPage.dart';
 import 'package:bmi/WeightAndAge.dart';
@@ -6,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'Calculation.dart';
 
 class InputScreen extends StatefulWidget {
   const InputScreen({super.key});
@@ -16,13 +20,13 @@ class InputScreen extends StatefulWidget {
 
 class _InputScreenState extends State<InputScreen> {
   double _currentHeight = 180;
-  int _weight = 60;
+  double _weight = 65.0;
   int Age = 22;
   Color _mPassColor = const Color(0xFF0A0E21);
   Color _mActiveColor = const Color.fromARGB(255, 81, 88, 123);
   Color _fPassColor = const Color(0xFF0A0E21);
   Color _fActiveColor = const Color.fromARGB(255, 81, 88, 123);
-
+  double bmiresult = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,7 +125,7 @@ class _InputScreenState extends State<InputScreen> {
                   Num: _weight,
                   onWeightChanged: (newWeight) {
                     setState(() {
-                      _weight = newWeight;
+                      _weight = newWeight.toDouble();
                     });
                   },
                   label: 'Weight',
@@ -133,7 +137,7 @@ class _InputScreenState extends State<InputScreen> {
               Expanded(
                 flex: 2,
                 child: WeightandAgeControl(
-                  Num: Age,
+                  Num: Age.toDouble(),
                   onWeightChanged: (newAge) {
                     setState(() {
                       Age = newAge;
@@ -159,12 +163,29 @@ class _InputScreenState extends State<InputScreen> {
                     ),
                   ),
                   onPressed: () {
-                    setState(() {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return ResultPage();
-                      }));
-                    });
+                    setState(
+                      () {
+                        CalculateBmi calculateBmi = CalculateBmi(
+                            gender: 'Female',
+                            weight: _weight,
+                            height: _currentHeight);
+                        bmiresult = calculateBmi.calculateBMI();
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return ResultPage(
+                                  bmiResult: bmiresult.toStringAsFixed(0),
+                                  interpretation: calculateBmi
+                                      .displayBMICategory(Age, bmiresult),
+                                  resultText:
+                                      calculateBmi.printBMICategory(bmiresult));
+                            },
+                          ),
+                        );
+                      },
+                    );
                   },
                   child: const Text(
                     'Calculate',
