@@ -1,45 +1,34 @@
-class CalculateBmi {
-  final double weight; // in kg
-  final double height; // in meters
-  final String gender;
-  CalculateBmi(
-      {required this.gender, required this.weight, required this.height});
+import 'dart:math';
 
-  double calculateBMI() {
-    return weight / (height * height);
+class CalculatorBrain {
+  CalculatorBrain({required this.height, required this.weight});
+
+  final double height;
+  final double weight;
+  double _bmi = 0.0;
+  String calculateBMI() {
+    _bmi = weight / pow(height / 100, 2);
+    return _bmi.toStringAsFixed(1);
   }
 
-  String displayBMICategory(int age, double bmi) {
-    if (gender.toLowerCase() == "male") {
-      if (age < 18) {
-        return "For males under 18, BMI recommendations may vary.";
-      } else if (age >= 18 && age <= 65) {
-        return "Adult male BMI categories apply.";
-      } else {
-        return "For elderly males, consult special BMI ranges.";
-      }
-    } else if (gender.toLowerCase() == "female") {
-      if (age < 18) {
-        return "For females under 18, BMI recommendations may vary.";
-      } else if (age >= 18 && age <= 65) {
-        return "Adult female BMI categories apply.";
-      } else {
-        return "For elderly females, consult special BMI ranges.";
-      }
+  String getResult() {
+    if (_bmi >= 25) {
+      return 'Overweight';
+    } else if (_bmi >= 18.5) {
+      return 'Normal';
     } else {
-      return "Gender not recognized. Please specify 'male' or 'female'.";
+      return 'Under Weight';
     }
   }
 
-  String printBMICategory(double bmi) {
-    if (bmi < 18.5) {
-      return "Underweight";
-    } else if (bmi >= 18.5 && bmi < 24.9) {
-      return "Normal weight";
-    } else if (bmi >= 25 && bmi < 29.9) {
-      return "Overweight";
+   String getInterpritation() {
+    if (_bmi >= 25) {
+      return 'You Have a higher than normal body weight. try to exercise more.';
+    } else if (_bmi >= 18.5) {
+     return 'You Have a normal body weight. Good Job!.';
     } else {
-      return "Obese";
+   return 'You Have a Lower than normal body weight. You can it a bit more.';
     }
   }
+
 }

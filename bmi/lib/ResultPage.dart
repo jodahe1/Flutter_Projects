@@ -40,7 +40,7 @@ class ResultPage extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   color: const Color.fromARGB(255, 8, 34, 61),
-                  child:  Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
@@ -72,7 +72,9 @@ class ResultPage extends StatelessWidget {
                           borderRadius: BorderRadius.zero, // Rectangular shape
                         ),
                         backgroundColor: Color.fromARGB(255, 2, 43, 49)),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     child: Text(
                       'Re-Calculate',
                       style: TextStyle(fontSize: 29),

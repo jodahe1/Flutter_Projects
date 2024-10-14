@@ -19,14 +19,14 @@ class InputScreen extends StatefulWidget {
 }
 
 class _InputScreenState extends State<InputScreen> {
-  double _currentHeight = 180;
-  double _weight = 65.0;
+  double height = 180;
+  double weight = 65.0;
   int Age = 22;
   Color _mPassColor = const Color(0xFF0A0E21);
   Color _mActiveColor = const Color.fromARGB(255, 81, 88, 123);
   Color _fPassColor = const Color(0xFF0A0E21);
   Color _fActiveColor = const Color.fromARGB(255, 81, 88, 123);
-  double bmiresult = 0;
+  double bmiresultC = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +91,7 @@ class _InputScreenState extends State<InputScreen> {
                     textBaseline: TextBaseline.alphabetic,
                     children: [
                       Text(
-                        _currentHeight.toInt().toString(),
+                        height.toInt().toString(),
                         style: const TextStyle(fontSize: 39),
                       ),
                       const Text(
@@ -101,14 +101,14 @@ class _InputScreenState extends State<InputScreen> {
                     ],
                   ),
                   Slider(
-                    value: _currentHeight,
+                    value: height,
                     min: 110,
                     max: 240,
                     divisions: 130,
-                    label: _currentHeight.toInt().toString(),
+                    label: height.toInt().toString(),
                     onChanged: (double newValue) {
                       setState(() {
-                        _currentHeight = newValue;
+                        height = newValue;
                       });
                     },
                   ),
@@ -122,10 +122,10 @@ class _InputScreenState extends State<InputScreen> {
               Expanded(
                 flex: 2,
                 child: WeightandAgeControl(
-                  Num: _weight,
+                  Num: weight,
                   onWeightChanged: (newWeight) {
                     setState(() {
-                      _weight = newWeight.toDouble();
+                      weight = newWeight.toDouble();
                     });
                   },
                   label: 'Weight',
@@ -165,22 +165,17 @@ class _InputScreenState extends State<InputScreen> {
                   onPressed: () {
                     setState(
                       () {
-                        CalculateBmi calculateBmi = CalculateBmi(
-                            gender: 'Female',
-                            weight: _weight,
-                            height: _currentHeight);
-                        bmiresult = calculateBmi.calculateBMI();
+                        CalculatorBrain calc =
+                            CalculatorBrain(height: height, weight: weight);
 
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) {
                               return ResultPage(
-                                  bmiResult: bmiresult.toStringAsFixed(0),
-                                  interpretation: calculateBmi
-                                      .displayBMICategory(Age, bmiresult),
-                                  resultText:
-                                      calculateBmi.printBMICategory(bmiresult));
+                                  bmiResult: calc.calculateBMI(),
+                                  resultText: calc.getResult(),
+                                  interpretation: calc.getInterpritation());
                             },
                           ),
                         );
