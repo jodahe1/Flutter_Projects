@@ -1,30 +1,33 @@
-// Extracted WeightControl widget
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class WeightandAgeControl extends StatelessWidget {
-  final int weight;
+  final int Num;
   final ValueChanged<int> onWeightChanged;
-
-  const WeightandAgeControl({
-    Key? key,
-    required this.weight,
-    required this.onWeightChanged,
-  }) : super(key: key);
+  final String label;
+  const WeightandAgeControl(
+      {Key? key,
+      required this.Num,
+      required this.onWeightChanged,
+      required this.label})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 8),
+      margin: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(
+        vertical: 8,
+      ),
       color: const Color.fromARGB(255, 25, 33, 75),
       child: Column(
         children: [
-          const Text(
-            'Weight',
+          Text(
+            label,
             style: TextStyle(fontSize: 30),
           ),
           Text(
-            weight.toString(),
+            Num.toString(),
             style: const TextStyle(fontSize: 30),
           ),
           Row(
@@ -39,13 +42,13 @@ class WeightandAgeControl extends StatelessWidget {
                   shadowColor: Colors.black.withOpacity(0.5),
                 ),
                 onPressed: () {
-                  if (weight > 0) {
-                    onWeightChanged(weight - 1);
+                  if (Num > 0) {
+                    onWeightChanged(Num - 1);
                   }
                 },
                 child: const Icon(
                   FontAwesomeIcons.minus,
-                  size: 25,
+                  size: 20,
                 ),
               ),
               ElevatedButton(
@@ -57,11 +60,11 @@ class WeightandAgeControl extends StatelessWidget {
                   shadowColor: Colors.black.withOpacity(0.5),
                 ),
                 onPressed: () {
-                  onWeightChanged(weight + 1);
+                  onWeightChanged(Num + 1);
                 },
                 child: const Icon(
                   FontAwesomeIcons.plus,
-                  size: 25.0,
+                  size: 20.0,
                 ),
               ),
             ],
