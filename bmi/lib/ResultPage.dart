@@ -16,9 +16,9 @@ class ResultPage extends StatelessWidget {
             const Expanded(
               flex: 1,
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 18.0),
+                padding: EdgeInsets.symmetric(vertical: 25.0),
                 child: Align(
-                  alignment: Alignment.topLeft,
+                  alignment: Alignment.bottomLeft,
                   child: Text(
                     'Your Result',
                     style: TextStyle(fontSize: 39),
@@ -29,10 +29,9 @@ class ResultPage extends StatelessWidget {
             Expanded(
               flex: 6,
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                
+                padding:
+                    const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15),
                 child: Container(
-                  
                   width: double.infinity,
                   color: const Color.fromARGB(255, 8, 34, 61),
                   child: const Column(
@@ -56,7 +55,24 @@ class ResultPage extends StatelessWidget {
                   ),
                 ),
               ),
-            )
+            ),
+            Expanded(
+                flex: 1,
+                child: Container(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero, // Rectangular shape
+                        ),
+                        backgroundColor: Color.fromARGB(255, 2, 43, 49)),
+                    onPressed: () {},
+                    child: Text(
+                      'Re-Calculate',
+                      style: TextStyle(fontSize: 29),
+                    ),
+                  ),
+                ))
           ],
         ));
   }
