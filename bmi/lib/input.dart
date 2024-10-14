@@ -1,4 +1,5 @@
 import 'package:bmi/Gendercard.dart';
+import 'package:bmi/ResultPage.dart';
 import 'package:bmi/WeightAndAge.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -159,7 +160,10 @@ class _InputScreenState extends State<InputScreen> {
                   ),
                   onPressed: () {
                     setState(() {
-                      
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ResultPage();
+                      }));
                     });
                   },
                   child: const Text(
