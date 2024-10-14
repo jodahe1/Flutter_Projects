@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(0xFF0A0E21),
         scaffoldBackgroundColor: Color(0xFF0A0E21),
       ),
-      home: inputclState(),
+      home: InputScreen(),
     );
   }
 }

@@ -1,25 +1,27 @@
-import 'dart:ui';
-
 import 'package:bmi/Gendercard.dart';
+import 'package:bmi/WeightAndAge.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class inputclState extends StatefulWidget {
-  const inputclState({super.key});
+class InputScreen extends StatefulWidget {
+  const InputScreen({super.key});
 
   @override
-  State<inputclState> createState() => __inputclStateState();
+  State<InputScreen> createState() => _InputScreenState();
 }
 
-class __inputclStateState extends State<inputclState> {
-  @override
+class _InputScreenState extends State<InputScreen> {
   double _currentHeight = 180;
-  Color MpassColor = Color(0xFF0A0E21);
-  Color Mactivecolor = Color.fromARGB(255, 81, 88, 123);
-  Color FpassColor = Color(0xFF0A0E21);
-  Color Factivecolor = Color.fromARGB(255, 81, 88, 123);
+  int _weight = 20;
+  Color _mPassColor = const Color(0xFF0A0E21);
+  Color _mActiveColor = const Color.fromARGB(255, 81, 88, 123);
+  Color _fPassColor = const Color(0xFF0A0E21);
+  Color _fActiveColor = const Color.fromARGB(255, 81, 88, 123);
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +35,7 @@ class __inputclStateState extends State<inputclState> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 80.0),
+            padding: const EdgeInsets.symmetric(vertical: 90.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -42,29 +44,26 @@ class __inputclStateState extends State<inputclState> {
                   child: GenderCard(
                     gender: 'Male',
                     icons: FontAwesomeIcons.mars,
-                    colors: MpassColor,
+                    colors: _mPassColor,
                     onTap: () {
                       setState(() {
-                        MpassColor = Mactivecolor;
-                        FpassColor = Color(0xFF0A0E21);
-                        ;
+                        _mPassColor = _mActiveColor;
+                        _fPassColor = const Color(0xFF0A0E21);
                       });
                     },
                   ),
                 ),
-                const SizedBox(
-                  width: 20,
-                ),
+                const SizedBox(width: 20),
                 Expanded(
                   flex: 2,
                   child: GenderCard(
                     gender: 'Female',
                     icons: FontAwesomeIcons.venus,
-                    colors: FpassColor,
+                    colors: _fPassColor,
                     onTap: () {
                       setState(() {
-                        FpassColor = Factivecolor;
-                        MpassColor = Color(0xFF0A0E21);
+                        _fPassColor = _fActiveColor;
+                        _mPassColor = const Color(0xFF0A0E21);
                       });
                     },
                   ),
@@ -73,49 +72,70 @@ class __inputclStateState extends State<inputclState> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 100.0),
-            child: Expanded(
-              flex: 2,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Height',
-                    style: TextStyle(fontSize: 29),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    textBaseline: TextBaseline.alphabetic,
-                    children: [
-                      Text(
-                        _currentHeight.toString(),
-                        style: TextStyle(fontSize: 39),
-                      ),
-                      const Text(
-                        'cm ',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                  Slider(
-                    value: _currentHeight,
-                    min: 110,
-                    max: 240,
-                    divisions:
-                        130, // Optional: to have discrete values (110-240)
-                    label: _currentHeight.toInt().toString(),
-                    onChanged: (double newValue) {
-                      setState(
-                        () {
-                          _currentHeight = newValue;
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
+            padding: const EdgeInsets.symmetric(vertical: 70.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text('Height', style: TextStyle(fontSize: 39)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
+                  children: [
+                    Text(
+                      _currentHeight.toInt().toString(),
+                      style: const TextStyle(fontSize: 39),
+                    ),
+                    const Text(
+                      'cm',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+                Slider(
+                  value: _currentHeight,
+                  min: 110,
+                  max: 240,
+                  divisions: 130,
+                  label: _currentHeight.toInt().toString(),
+                  onChanged: (double newValue) {
+                    setState(() {
+                      _currentHeight = newValue;
+                    });
+                  },
+                ),
+              ],
             ),
+          ),
+          // Refactored Weight And Age  Section
+          Row(
+            children: [
+              Expanded(
+                flex: 2,
+                child: WeightandAgeControl(
+                  weight: _weight,
+                  onWeightChanged: (newWeight) {
+                    setState(() {
+                      _weight = newWeight;
+                    });
+                  },
+                ),
+              ),
+              const SizedBox(
+                width: 15.0,
+              ),
+              Expanded(
+                flex: 2,
+                child: WeightandAgeControl(
+                  weight: _weight,
+                  onWeightChanged: (newWeight) {
+                    setState(() {
+                      _weight = newWeight;
+                    });
+                  },
+                ),
+              )
+            ],
           )
         ],
       ),
