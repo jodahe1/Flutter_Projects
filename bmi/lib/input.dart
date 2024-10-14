@@ -16,8 +16,10 @@ class inputclState extends StatefulWidget {
 class __inputclStateState extends State<inputclState> {
   @override
   double _currentHeight = 180;
-  Color activecolor = Color(0xFF0A0E21);
-  Color inactivecolor = Color.fromARGB(255, 81, 88, 123);
+  Color MpassColor = Color(0xFF0A0E21);
+  Color Mactivecolor = Color.fromARGB(255, 81, 88, 123);
+  Color FpassColor = Color(0xFF0A0E21);
+  Color Factivecolor = Color.fromARGB(255, 81, 88, 123);
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -37,17 +39,17 @@ class __inputclStateState extends State<inputclState> {
               children: [
                 Expanded(
                   flex: 2,
-                  child: GestureDetector(
+                  child: GenderCard(
+                    gender: 'Male',
+                    icons: FontAwesomeIcons.mars,
+                    colors: MpassColor,
                     onTap: () {
                       setState(() {
-                        activecolor = inactivecolor;
+                        MpassColor = Mactivecolor;
+                        FpassColor = Color(0xFF0A0E21);
+                        ;
                       });
                     },
-                    child: GenderCard(
-                      gender: 'Male',
-                      icons: FontAwesomeIcons.mars,
-                      colors: activecolor,
-                    ),
                   ),
                 ),
                 const SizedBox(
@@ -55,13 +57,16 @@ class __inputclStateState extends State<inputclState> {
                 ),
                 Expanded(
                   flex: 2,
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: GenderCard(
-                      gender: 'Female',
-                      icons: FontAwesomeIcons.venus,
-                      colors: activecolor,
-                    ),
+                  child: GenderCard(
+                    gender: 'Female',
+                    icons: FontAwesomeIcons.venus,
+                    colors: FpassColor,
+                    onTap: () {
+                      setState(() {
+                        FpassColor = Factivecolor;
+                        MpassColor = Color(0xFF0A0E21);
+                      });
+                    },
                   ),
                 ),
               ],
