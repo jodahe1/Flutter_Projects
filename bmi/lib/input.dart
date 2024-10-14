@@ -1,5 +1,9 @@
+import 'dart:ui';
+
 import 'package:bmi/Gendercard.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class inputclState extends StatefulWidget {
@@ -12,6 +16,8 @@ class inputclState extends StatefulWidget {
 class __inputclStateState extends State<inputclState> {
   @override
   double _currentHeight = 180;
+  Color activecolor = Color(0xFF0A0E21);
+  Color inactivecolor = Color.fromARGB(255, 81, 88, 123);
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -24,19 +30,40 @@ class __inputclStateState extends State<inputclState> {
       ),
       body: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 80.0),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 80.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                GenderCard(
-                  gender: 'Male',
-                  icons: FontAwesomeIcons.mars,
+                Expanded(
+                  flex: 2,
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        activecolor = inactivecolor;
+                      });
+                    },
+                    child: GenderCard(
+                      gender: 'Male',
+                      icons: FontAwesomeIcons.mars,
+                      colors: activecolor,
+                    ),
+                  ),
                 ),
-                GenderCard(
-                  gender: 'Female',
-                  icons: FontAwesomeIcons.venus,
-                )
+                const SizedBox(
+                  width: 20,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: GenderCard(
+                      gender: 'Female',
+                      icons: FontAwesomeIcons.venus,
+                      colors: activecolor,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -90,4 +117,3 @@ class __inputclStateState extends State<inputclState> {
     );
   }
 }
-
